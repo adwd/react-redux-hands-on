@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import AppBar from 'material-ui/lib/app-bar'
 import '../../styles/core.scss'
 
 // Note: Stateless/function components *will not* hot reload!
@@ -12,10 +13,12 @@ import '../../styles/core.scss'
 // define it with a plain javascript function...
 function CoreLayout ({ children }) {
   return (
-    <div className='page-container'>
-      <div className='view-container'>
-        {children}
-      </div>
+    <div>
+      <AppBar
+        title='Title'
+        iconClassNameRight='muidocs-icon-navigation-expand-more'
+      />
+      {children}
     </div>
   )
 }

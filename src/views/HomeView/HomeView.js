@@ -4,6 +4,14 @@ import { connect } from 'react-redux'
 import { increment, doubleAsync } from '../../redux/modules/counter'
 import DuckImage from './Duck.jpg'
 import classes from './HomeView.scss'
+import Paper from 'material-ui/lib/paper'
+import Card from 'material-ui/lib/card/card'
+import CardActions from 'material-ui/lib/card/card-actions'
+import CardHeader from 'material-ui/lib/card/card-header'
+import CardMedia from 'material-ui/lib/card/card-media'
+import CardTitle from 'material-ui/lib/card/card-title'
+import CardText from 'material-ui/lib/card/card-text'
+import RaisedButton from 'material-ui/lib/raised-button'
 
 // We can use Flow (http://flowtype.org/) to type our component's props
 // and state. For convenience we've included both regular propTypes and
@@ -18,6 +26,17 @@ type Props = {
   increment: Function
 };
 
+const styles = {
+  container: {
+    textAlign: 'center'
+  },
+  content: {
+    width: '80%',
+    margin: 20,
+    display: 'inline-block'
+  }
+}
+
 // We avoid using the `@connect` decorator on the class definition so
 // that we can export the undecorated component for testing.
 // See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
@@ -29,28 +48,37 @@ export class HomeView extends React.Component<void, Props, void> {
   };
 
   render () {
+    const { counter, increment, doubleAsync } = this.props
     return (
-      <div className='container text-center'>
-        <div className='row'>
-          <div className='col-xs-2 col-xs-offset-5'>
-            <img className={classes.duck}
-              src={DuckImage}
-              alt='This is a duck, because Redux.' />
-          </div>
-        </div>
-        <h1>Welcome to the React Redux Starter Kit</h1>
-        <h2>
-          Sample Counter:
-          {' '}
-          <span className={classes['counter--green']}>{this.props.counter}</span>
-        </h2>
-        <button className='btn btn-default' onClick={this.props.increment}>
-          Increment
-        </button>
-        {' '}
-        <button className='btn btn-default' onClick={this.props.doubleAsync}>
-          Double (Async)
-        </button>
+      <div style={styles.container}>
+        <Paper style={styles.content} zDepth={3} rounded={false}>
+          <Card>
+            <CardHeader
+              title='React/Redux Hands-on'
+              subtitle='2016/4/11'
+            />
+            {
+              // TODO: いい感じの画像をいい感じのサイズで置く
+              /*
+                <CardMedia
+                  overlay={<CardTitle title='Overlay title' subtitle='Overlay subtitle' />}
+                >
+                  <img src={DuckImage} />
+                </CardMedia>
+              */
+            }
+            <CardTitle title='Welcome to the React Redux Starter Kit' />
+            <CardText>
+              Sample Counter:
+              {' '}
+              <span className={classes['counter--green']}>{counter}</span>
+            </CardText>
+            <CardActions>
+              <RaisedButton onClick={increment} label='Increment' />
+              <RaisedButton onClick={doubleAsync} label='Double (Async)' />
+            </CardActions>
+          </Card>
+        </Paper>
       </div>
     )
   }
