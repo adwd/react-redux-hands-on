@@ -3,18 +3,14 @@
 */
 import Router from 'koa-router'
 import bodyParser from 'koa-bodyparser'
+import { delay } from './utils'
 
 const route = new Router()
+let nextId = 2
 let users = [
-  { name: 'bob', age: 20 },
-  { name: 'tom', age: 22 }
+  { id: 0, name: 'bob', age: 20 },
+  { id: 1, name: 'tom', age: 22 }
 ]
-
-function delay (msec) {
-  return new Promise(function (resolve, reject) {
-    setTimeout(resolve, msec)
-  })
-}
 
 // 2秒後ユーザー一覧を返す
 route.get('/', (ctx, next) => {
@@ -28,6 +24,7 @@ route.post('/add', bodyParser(), (ctx, next) => {
   const { name, age } = ctx.request.body
   if (name && age) {
     users.push({ name, age })
+    nextId++
 
     console.log('succeeded to add user')
     ctx.status = 200
