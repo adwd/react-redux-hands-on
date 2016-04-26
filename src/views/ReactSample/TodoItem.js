@@ -2,15 +2,18 @@ import React, { Component, PropTypes } from 'react'
 
 export default class TodoItem extends Component {
   static propTypes = {
-    text: PropTypes.string,
-    count: PropTypes.number
+    count: PropTypes.number,
+    children: PropTypes.oneOfType([
+      React.PropTypes.arrayOf(React.PropTypes.node),
+      React.PropTypes.node
+    ])
   }
 
   render () {
-    const { text, count } = this.props
+    const { count, children } = this.props
     return (
       <div>
-        <p>{count}: {text}</p>
+        {count}: {children}
       </div>
     )
   }
