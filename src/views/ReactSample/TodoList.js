@@ -5,6 +5,9 @@ export default class TodoList extends Component {
   constructor (props) {
     super(props)
 
+    // コンストラクタでstateの初期値を設定する
+    // コンストラクタ内ではthis.stateに直接代入するが、
+    // ここ以外の状態の変更はthis.setStateを使う
     this.state = {
       newTodo: '',
       todos: [
@@ -14,14 +17,16 @@ export default class TodoList extends Component {
       ]
     }
 
-    this.handleTextChange = this.handleTextChange.bind(this)
+    // クラスのメソッドは手動でbindしないといけない
+    this.changeText = this.changeText.bind(this)
   }
 
-  handleTextChange (e) {
+  changeText (e) {
     this.setState({ newTodo: e.target.value })
   }
 
-  handleClick = () => {
+  // クラスのメソッドではなく、ラムダ式でプロパティに関数を設定するとbindしなくてよい（？）
+  addTodo = () => {
     const newTodo = this.state.newTodo
     this.setState({
       newTodo: '',
@@ -29,18 +34,20 @@ export default class TodoList extends Component {
     })
   }
 
-  handleDeleteTodoItem = (index) => {
+  deleteTodoItem = (index) => {
     this.setState({
       todos: this.state.todos.filter((todo, i) => i !== index)
     })
   }
 
   render () {
+    // JSON形式でスタイルシートの直接指定ができる
     const style = {
       content: {
         padding: '10px 40px'
       },
       pre: {
+        // ハイフンはキャメルケースにして書く
         fontFamily: 'Consolas, Monaco, monospace',
         fontSize: 12,
         backgroundColor: '#eeeeee',
@@ -54,11 +61,11 @@ export default class TodoList extends Component {
         <h1>React Sample</h1>
         <h2>Todos</h2>
 
-        <input type='text' value={this.state.newTodo} onChange={this.handleTextChange} />
-        <button onClick={this.handleClick}>add todo</button>
+        <input type='text' value={this.state.newTodo} onChange={this.changeText} />
+        <button onClick={this.addTodo}>add todo</button>
         {
           this.state.todos.map((text, index) => (
-            <TodoItem count={index} onRemove={this.handleDeleteTodoItem} key={index}>
+            <TodoItem index={index} onRemove={this.deleteTodoItem} key={index}>
               {text}
             </TodoItem>
           ))
