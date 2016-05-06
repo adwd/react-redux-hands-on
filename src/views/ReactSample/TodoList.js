@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import TodoItem from './TodoItem'
 
-export default class ReactSample extends Component {
+export default class TodoList extends Component {
   constructor (props) {
     super(props)
 

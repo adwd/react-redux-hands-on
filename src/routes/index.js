@@ -8,7 +8,7 @@ import { Route, IndexRoute } from 'react-router'
 // your current file is.
 import CoreLayout from 'layouts/CoreLayout/CoreLayout'
 import HomeView from 'views/HomeView/HomeView'
-import ReactSample from 'views/ReactSample/ReactSample'
+import ReactSample from 'views/ReactSample'
 import ReduxSample from 'views/ReduxSample/ReduxSample'
 
 export default (store) => (
