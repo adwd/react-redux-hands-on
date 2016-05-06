@@ -59,9 +59,8 @@ class ReduxSample extends React.Component {
     const style = {
       height: 500,
       width: '90%',
-      margin: 20,
-      textAlign: 'center',
-      display: 'inline-block'
+      marginRight: 'auto',
+      marginLeft: 'auto'
     }
 
     return (

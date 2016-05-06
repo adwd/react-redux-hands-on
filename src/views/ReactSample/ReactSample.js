@@ -14,18 +14,24 @@ export default class ReactSample extends Component {
       ]
     }
 
-    this.handleTextChange = this.handleChange.bind(this)
+    this.handleTextChange = this.handleTextChange.bind(this)
   }
 
-  handleChange (e) {
+  handleTextChange (e) {
     this.setState({ newTodo: e.target.value })
   }
 
   handleClick = () => {
-    const todo = this.state.newTodo
+    const newTodo = this.state.newTodo
     this.setState({
       newTodo: '',
-      todos: [...this.state.todos, todo]
+      todos: [...this.state.todos, newTodo]
+    })
+  }
+
+  handleDeleteTodoItem = (index) => {
+    this.setState({
+      todos: this.state.todos.filter((todo, i) => i !== index)
     })
   }
 
@@ -52,7 +58,7 @@ export default class ReactSample extends Component {
         <button onClick={this.handleClick}>add todo</button>
         {
           this.state.todos.map((text, index) => (
-            <TodoItem count={index + 1} key={index}>
+            <TodoItem count={index} onRemove={this.handleDeleteTodoItem} key={index}>
               {text}
             </TodoItem>
           ))
