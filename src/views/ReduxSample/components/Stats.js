@@ -1,15 +1,14 @@
 import React, { PropTypes } from 'react'
-import Avatar from 'material-ui/lib/avatar'
-import Colors from 'material-ui/lib/styles/colors'
-import List from 'material-ui/lib/lists/list'
-import ListItem from 'material-ui/lib/lists/list-item'
-import LinearProgress from 'material-ui/lib/linear-progress'
+import Avatar from 'material-ui/Avatar'
+import { darkBlack } from 'material-ui/styles/colors'
+import { List, ListItem } from 'material-ui/List'
+import LinearProgress from 'material-ui/LinearProgress'
 
 const Stat = ({ name, id, age, events }) => {
   const eventsText = events && events.length > 0
     ? (
     <p>
-      <span style={{color: Colors.darkBlack}}>{`${events.length} events`}</span><br />
+      <span style={{color: darkBlack}}>{`${events.length} events`}</span><br />
       {events.map(event => event.title).join(', ')}
     </p>
     ) : (<p></p>)

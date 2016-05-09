@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
-import Avatar from 'material-ui/lib/avatar'
-import List from 'material-ui/lib/lists/list'
-import ListItem from 'material-ui/lib/lists/list-item'
+import Avatar from 'material-ui/Avatar'
+import { List, ListItem } from 'material-ui/List'
 
 const User = ({ id, name, age }) => (
   <ListItem

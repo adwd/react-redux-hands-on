@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import AppBar from 'material-ui/lib/app-bar'
-import LeftNav from 'material-ui/lib/left-nav'
-import List from 'material-ui/lib/lists/list'
-import ListItem from 'material-ui/lib/lists/list-item'
+import AppBar from 'material-ui/AppBar'
+import Drawer from 'material-ui/Drawer'
+import { List, ListItem } from 'material-ui/List'
+import Subheader from 'material-ui/Subheader'
 import '../../styles/core.scss'
 
 export default class CoreLayout extends Component {
@@ -32,12 +32,13 @@ export default class CoreLayout extends Component {
           title='React/Redux Hands-on'
           onLeftIconButtonTouchTap={this.handleToggle}
         />
-        <LeftNav
+        <Drawer
           docked={false}
           open={this.state.open}
           onRequestChange={this.handleRequestChange}
         >
-          <List subheader='Samples'>
+          <List>
+            <Subheader inset>Samples</Subheader>
             <ListItem
               primaryText='Home'
               onTouchTap={this.handleClickItem('/')}
@@ -53,7 +54,7 @@ export default class CoreLayout extends Component {
               onTouchTap={this.handleClickItem('/redux')}
             />
           </List>
-        </LeftNav>
+        </Drawer>
         {this.props.children}
       </div>
     )
