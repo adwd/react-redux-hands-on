@@ -8,9 +8,13 @@ import { Route, IndexRoute } from 'react-router'
 // your current file is.
 import CoreLayout from 'layouts/CoreLayout/CoreLayout'
 import HomeView from 'views/HomeView/HomeView'
+import ReactSample from 'views/ReactSample'
+import ReduxSample from 'views/ReduxSample/ReduxSample'
 
 export default (store) => (
   <Route path='/' component={CoreLayout}>
     <IndexRoute component={HomeView} />
+    <Route path='react' component={ReactSample} />
+    <Route path='redux' component={ReduxSample} />
   </Route>
 )

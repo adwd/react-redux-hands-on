@@ -1,27 +1,69 @@
-import React, { PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
+import AppBar from 'material-ui/AppBar'
+import Drawer from 'material-ui/Drawer'
+import { List, ListItem } from 'material-ui/List'
+import Subheader from 'material-ui/Subheader'
 import '../../styles/core.scss'
 
-// Note: Stateless/function components *will not* hot reload!
-// react-transform *only* works on component classes.
-//
-// Since layouts rarely change, they are a good place to
-// leverage React's new Stateless Functions:
-// https://facebook.github.io/react/docs/reusable-components.html#stateless-functions
-//
-// CoreLayout is a pure function of its props, so we can
-// define it with a plain javascript function...
-function CoreLayout ({ children }) {
-  return (
-    <div className='page-container'>
-      <div className='view-container'>
-        {children}
+export default class CoreLayout extends Component {
+
+  constructor (props) {
+    super(props)
+
+    this.handleRequestChange = this.handleRequestChange.bind(this)
+    this.state = {open: false}
+  }
+
+  handleToggle = () => this.setState({open: !this.state.open})
+
+  handleRequestChange (open) {
+    this.setState({open})
+  }
+
+  handleClickItem = (path) => () => {
+    this.setState({open: !this.state.open})
+    this.props.history.push(path)
+  }
+
+  render () {
+    return (
+      <div>
+        <AppBar
+          title='React/Redux Hands-on'
+          onLeftIconButtonTouchTap={this.handleToggle}
+        />
+        <Drawer
+          docked={false}
+          open={this.state.open}
+          onRequestChange={this.handleRequestChange}
+        >
+          <List>
+            <Subheader inset>Samples</Subheader>
+            <ListItem
+              primaryText='Home'
+              onTouchTap={this.handleClickItem('/')}
+            />
+            <ListItem
+              primaryText='React'
+              secondaryText='state, props, stateless component'
+              onTouchTap={this.handleClickItem('/react')}
+            />
+            <ListItem
+              primaryText='Redux'
+              secondaryText='store, action, reducer'
+              onTouchTap={this.handleClickItem('/redux')}
+            />
+          </List>
+        </Drawer>
+        {this.props.children}
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 CoreLayout.propTypes = {
-  children: PropTypes.element
+  children: PropTypes.element,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 }
-
-export default CoreLayout
