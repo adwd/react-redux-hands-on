@@ -48,8 +48,14 @@ const initialState = {
 // Reducer
 export default function eventsReducer (state = initialState, action) {
   switch (action.type) {
-    case FETCH_EVENTS_REQUEST:
+    case FETCH_EVENTS_REQUEST: {
+      // 既にロード済みなら何もしない
+      if (state.status === 'LOADED') {
+        return state
+      }
+
       return { status: 'LOADING', list: [] }
+    }
 
     case FETCH_EVENTS_SUCCEEDED:
       return { status: 'LOADED', list: action.events }

@@ -48,8 +48,14 @@ const initialState = {
 // Reducer
 export default function usersReducer (state = initialState, action) {
   switch (action.type) {
-    case FETCH_USERS_REQUEST:
+    case FETCH_USERS_REQUEST: {
+      // 既にロード済みなら何もしない
+      if (state.status === 'LOADED') {
+        return state
+      }
+
       return { status: 'LOADING', list: [] }
+    }
 
     case FETCH_USERS_SUCCEEDED:
       return { status: 'LOADED', list: action.users }
