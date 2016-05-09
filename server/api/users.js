@@ -9,7 +9,8 @@ const route = new Router()
 let nextId = 2
 let users = [
   { id: 0, name: 'bob', age: 20 },
-  { id: 1, name: 'tom', age: 22 }
+  { id: 1, name: 'tom', age: 22 },
+  { id: 2, name: 'scala.js enthusiast', age: 30 }
 ]
 
 // 2秒後ユーザー一覧を返す

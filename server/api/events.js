@@ -8,7 +8,9 @@ import { delay } from './utils'
 const route = new Router()
 let events = [
   { title: 'react meet up', creatorId: 1, date: '5/11' },
-  { title: 'USE SCALA.JS', creatorId: 2, date: '5/22' }
+  { title: 'USE SCALA.JS', creatorId: 2, date: '5/22' },
+  { title: 'introduction to scala.js', creatorId: 2, date: '5/23' },
+  { title: 'zen of scala.js', creatorId: 2, date: '5/24' }
 ]
 
 route.get('/', (ctx, next) => {
