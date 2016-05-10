@@ -53,6 +53,11 @@ export default class CoreLayout extends Component {
               secondaryText='store, action, reducer'
               onTouchTap={this.handleClickItem('/redux')}
             />
+            <ListItem
+              primaryText='Redux-Async'
+              secondaryText='async action, redux-thunk'
+              onTouchTap={this.handleClickItem('/redux-async')}
+            />
           </List>
         </Drawer>
         {this.props.children}
