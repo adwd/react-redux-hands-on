@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react'
+import { withRouter } from 'react-router'
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import { List, ListItem } from 'material-ui/List'
 import Subheader from 'material-ui/Subheader'
 import '../../styles/core.scss'
 
-export default class CoreLayout extends Component {
+export class CoreLayout extends Component {
 
   constructor (props) {
     super(props)
@@ -22,7 +23,7 @@ export default class CoreLayout extends Component {
 
   handleClickItem = (path) => () => {
     this.setState({open: !this.state.open})
-    this.props.history.push(path)
+    this.props.router.push(path)
   }
 
   render () {
@@ -53,6 +54,11 @@ export default class CoreLayout extends Component {
               secondaryText='store, action, reducer'
               onTouchTap={this.handleClickItem('/redux')}
             />
+            <ListItem
+              primaryText='Redux-Async'
+              secondaryText='async action, redux-thunk'
+              onTouchTap={this.handleClickItem('/redux-async')}
+            />
           </List>
         </Drawer>
         {this.props.children}
@@ -63,7 +69,9 @@ export default class CoreLayout extends Component {
 
 CoreLayout.propTypes = {
   children: PropTypes.element,
-  history: PropTypes.shape({
+  router: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired
 }
+
+export default withRouter(CoreLayout)

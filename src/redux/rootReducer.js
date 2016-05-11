@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
 import { routerReducer as router } from 'react-router-redux'
 import counter from './modules/counter'
-import users from './modules/users'
-import events from './modules/events'
+import todo from './modules/todo'
+import asyncTodo from './modules/asyncTodo'
 
 export default combineReducers({
   counter,
-  users,
-  events,
+  todo,
+  asyncTodo,
   router
 })

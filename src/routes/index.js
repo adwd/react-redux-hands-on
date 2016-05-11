@@ -9,12 +9,14 @@ import { Route, IndexRoute } from 'react-router'
 import CoreLayout from 'layouts/CoreLayout/CoreLayout'
 import HomeView from 'views/HomeView/HomeView'
 import ReactSample from 'views/ReactSample'
-import ReduxSample from 'views/ReduxSample/ReduxSample'
+import ReduxSample from 'views/ReduxSample'
+import ReduxAsyncSample from 'views/ReduxAsyncSample'
 
 export default (store) => (
   <Route path='/' component={CoreLayout}>
     <IndexRoute component={HomeView} />
     <Route path='react' component={ReactSample} />
     <Route path='redux' component={ReduxSample} />
+    <Route path='redux-async' component={ReduxAsyncSample} />
   </Route>
 )

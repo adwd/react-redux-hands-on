@@ -1,4 +1,4 @@
-React Redux Hands-on
+React Redux Introduction
 =======================
 
 forked from https://github.com/davezuko/react-redux-starter-kit, v2.0.0-alpha5
