@@ -6,7 +6,7 @@ import bodyParser from 'koa-bodyparser'
 import { delay } from './utils'
 
 const route = new Router()
-let nextId = 2
+let nextId = 3
 let users = [
   { id: 0, name: 'bob', age: 20 },
   { id: 1, name: 'tom', age: 22 },
