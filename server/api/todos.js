@@ -26,7 +26,7 @@ route.post('/add', bodyParser(), (ctx, next) => {
     if (text) {
       todos.push(text)
       ctx.status = 200
-      ctx.body = `succeeded to add todo, "${text}"`
+      ctx.body = todos
     } else {
       ctx.status = 404
       ctx.body = 'failed to add todo'
@@ -40,7 +40,7 @@ route.delete('/:index', (ctx, next) => {
     const index = parseInt(ctx.params.index, 10)
     todos = todos.filter((todo, i) => i !== index)
     ctx.status = 200
-    ctx.body = 1
+    ctx.body = todos
   })
 })
 

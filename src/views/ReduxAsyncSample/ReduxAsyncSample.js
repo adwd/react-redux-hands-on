@@ -4,50 +4,21 @@ import Paper from 'material-ui/Paper'
 import { Tabs, Tab } from 'material-ui/Tabs'
 import FontIcon from 'material-ui/FontIcon'
 import LinearProgress from 'material-ui/LinearProgress'
-import { fetchUsers } from '../../redux/modules/users'
-import { fetchEvents } from '../../redux/modules/events'
-import Users from './components/Users'
-import Events from './components/Events'
-import Stats from './components/Stats'
+import { fetchTodos, editTodo, addTodo, removeTodo } from '../../redux/modules/asyncTodo'
 
 class ReduxAsyncSample extends Component {
   static propTypes = {
     dispatch: PropTypes.func,
-    users: PropTypes.any,
-    events: PropTypes.any
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.handleTabActive = this.handleTabActive.bind(this)
+    todo: PropTypes.any
   }
 
   componentDidMount () {
-    this.props.dispatch(fetchUsers())
-  }
-
-  handleTabActive (tab) {
-    // componentDidMountでusersは取得するので、eventsかstatsのタブを開いた時に
-    // eventsを取得する
-    switch (tab) {
-      case 'users':
-        break
-
-      case 'events':
-        this.props.dispatch(fetchEvents())
-        break
-
-      case 'stats':
-        this.props.dispatch(fetchEvents())
-        break
-
-      default:
-        break
-    }
+    this.props.dispatch(fetchTodos())
   }
 
   render () {
+    const { dispatch } = this.props
+    const { newTodo, todos, loading, adding, removing } = this.props.todo
     const style = {
       p: {
         margin: '10px'
@@ -57,68 +28,38 @@ class ReduxAsyncSample extends Component {
         width: '90%',
         marginRight: 'auto',
         marginLeft: 'auto'
+      },
+      pre: {
+        fontFamily: 'Consolas, Monaco, monospace',
+        fontSize: 12,
+        backgroundColor: '#eeeeee',
+        margin: '20px',
+        padding: '10px'
       }
     }
     console.log(this.props)
 
-    const Lazy = ({ loading, children }) => {
-      switch (loading) {
-        case 'LOADING':
-          return (
-            <div>
-              <LinearProgress mode='indeterminate' color='Cyan' />
-              <p style={style.p}>loading...</p>
-            </div>
-          )
-
-        case 'LOADED':
-          return (
-            <div>
-              {children}
-            </div>
-          )
-
-        default:
-          return (
-            <p>load failed</p>
-          )
-      }
-    }
-
-    const handleActive = (tpe) => () => this.handleTabActive(tpe)
+    const edit = (e) => dispatch(editTodo(e.target.value))
+    const add = () => dispatch(addTodo(this.refs.newTodo.value))
+    const remove = (index) => () => dispatch(removeTodo(index))
 
     return (
-      <div>
-        <p>Redux Async Sample</p>
-        <Paper style={style.content} zDepth={3}>
-          <Tabs>
-            <Tab
-              icon={<FontIcon className='material-icons'>person</FontIcon>}
-              label='users'
-              onActive={handleActive('users')}
-            >
-              <Lazy loading={this.props.users.status}>
-                <Users users={this.props.users.list} />
-              </Lazy>
-            </Tab>
-            <Tab
-              icon={<FontIcon className='material-icons'>event</FontIcon>}
-              label='events'
-              onActive={handleActive('events')}
-            >
-              <Lazy loading={this.props.events.status}>
-                <Events events={this.props.events.list} />
-              </Lazy>
-            </Tab>
-            <Tab
-              icon={<FontIcon className='material-icons'>assessment</FontIcon>}
-              label='user stats'
-              onActive={handleActive('stats')}
-            >
-              <Stats users={this.props.users} events={this.props.events} />
-            </Tab>
-          </Tabs>
-        </Paper>
+      <div style={style.content}>
+        <h1>Redux Async Sample</h1>
+        <h2>Todos</h2>
+
+        <input type='text' value={newTodo} onChange={edit} ref='newTodo' disabled={adding || removing} />
+        <button onClick={add} disabled={adding}>add todo</button>
+        {loading
+          ? <p>loading todo</p>
+          : todos.map((text, index) => (
+            <div key={index}>
+              {`${index + 1}`}: {text}
+              <button onClick={remove(index)} disabled={adding || removing}>x</button>
+            </div>
+          ))
+        }
+        <pre style={style.pre}>{JSON.stringify(this.props.todo, null, 2)}</pre>
       </div>
     )
   }
@@ -126,8 +67,7 @@ class ReduxAsyncSample extends Component {
 
 const ConnectedReduxAsyncSample = connect(
   state => ({
-    users: state.users,
-    events: state.events
+    todo: state.asyncTodo
   })
 )(ReduxAsyncSample)
 
