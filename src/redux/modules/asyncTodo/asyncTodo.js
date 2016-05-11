@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { types } from './rest'
+import { types } from './others' // todoをAPIで取得する以外の、Todoの追加・更新はothers.jsのほうに書いた
 
 // Constants
 const FETCH_TODO_REQUEST = 'FETCH_TODO_REQUEST'
