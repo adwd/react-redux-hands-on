@@ -8,7 +8,7 @@ Usage
 
 ```
 cd your/working/directory
-git clone https://github.com/adwd/react-redux-hands-on
+git clone https://github.com/adwd/react-redux-introduction
 npm i
 npm run dev
 open http://localhost:3000
