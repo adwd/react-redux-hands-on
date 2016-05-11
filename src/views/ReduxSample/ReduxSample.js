@@ -25,9 +25,9 @@ class ReduxSample extends Component {
         <button onClick={add}>add todo</button>
         {
           todos.map((text, index) => (
-            <div>
+            <div key={index}>
               {`${index + 1}`}: {text}
-              <input type='button' value='x' onClick={remove(index)} />
+              <button onClick={remove(index)} >x</button>
             </div>
           ))
         }
