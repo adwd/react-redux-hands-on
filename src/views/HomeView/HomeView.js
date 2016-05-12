@@ -39,7 +39,7 @@ export class HomeView extends React.Component<void, Props, void> {
       <div style={styles.container}>
         <Paper style={styles.content} zDepth={3} rounded={false}>
           <Card>
-            <CardTitle title='React Redux Introduction Kit' />
+            <CardTitle title='React Redux Introduction' />
             <CardText>
               <Link to='react'><p>react sample</p></Link>
               <Link to='redux'><p>redux sample</p></Link>
