@@ -30,7 +30,7 @@ export class CoreLayout extends Component {
     return (
       <div>
         <AppBar
-          title='React/Redux Hands-on'
+          title='React/Redux Introduction'
           onLeftIconButtonTouchTap={this.handleToggle}
         />
         <Drawer
