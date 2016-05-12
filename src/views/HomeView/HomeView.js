@@ -1,12 +1,9 @@
 /* @flow */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { increment, doubleAsync } from '../../redux/modules/counter'
-import DuckImage from './Duck.jpg'
-import classes from './HomeView.scss'
+import { Link, withRouter } from 'react-router'
 import Paper from 'material-ui/Paper'
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card'
-import RaisedButton from 'material-ui/RaisedButton'
+import { Card, CardTitle, CardText } from 'material-ui/Card'
 
 // We can use Flow (http://flowtype.org/) to type our component's props
 // and state. For convenience we've included both regular propTypes and
@@ -36,42 +33,18 @@ const styles = {
 // that we can export the undecorated component for testing.
 // See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
 export class HomeView extends React.Component<void, Props, void> {
-  static propTypes = {
-    counter: PropTypes.number.isRequired,
-    doubleAsync: PropTypes.func.isRequired,
-    increment: PropTypes.func.isRequired
-  };
-
   render () {
-    const { counter, increment, doubleAsync } = this.props
+    const toReduxAsync = () => this.props.router.push('redux-async')
     return (
       <div style={styles.container}>
         <Paper style={styles.content} zDepth={3} rounded={false}>
           <Card>
-            <CardHeader
-              title='React/Redux Hands-on'
-              subtitle='2016/4/11'
-            />
-            {
-              // TODO: いい感じの画像をいい感じのサイズで置く
-              /*
-                <CardMedia
-                  overlay={<CardTitle title='Overlay title' subtitle='Overlay subtitle' />}
-                >
-                  <img src={DuckImage} />
-                </CardMedia>
-              */
-            }
-            <CardTitle title='Welcome to the React Redux Starter Kit' />
+            <CardTitle title='React Redux Introduction Kit' />
             <CardText>
-              Sample Counter:
-              {' '}
-              <span className={classes['counter--green']}>{counter}</span>
+              <Link to='react'><p>react sample</p></Link>
+              <Link to='redux'><p>redux sample</p></Link>
+              <button onClick={toReduxAsync}>redux-async sample</button>
             </CardText>
-            <CardActions>
-              <RaisedButton onClick={increment} label='Increment' />
-              <RaisedButton onClick={doubleAsync} label='Double (Async)' />
-            </CardActions>
           </Card>
         </Paper>
       </div>
@@ -79,10 +52,10 @@ export class HomeView extends React.Component<void, Props, void> {
   }
 }
 
-const mapStateToProps = (state) => ({
-  counter: state.counter
-})
-export default connect((mapStateToProps), {
-  increment: () => increment(1),
-  doubleAsync
-})(HomeView)
+HomeView.propTypes = {
+  router: PropTypes.shape({
+    push: PropTypes.func
+  })
+}
+
+export default connect(state => state)(withRouter(HomeView))
