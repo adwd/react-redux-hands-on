@@ -16,16 +16,12 @@ export default class TodoList extends Component {
         'learn redux'
       ]
     }
-
-    // クラスのメソッドは手動でbindしないといけない
-    this.changeText = this.changeText.bind(this)
   }
 
-  changeText (e) {
+  changeText = (e) => {
     this.setState({ newTodo: e.target.value })
   }
 
-  // クラスのメソッドではなく、ラムダ式でプロパティに関数を設定するとbindしなくてよい（？）
   addTodo = () => {
     const newTodo = this.state.newTodo
     this.setState({
