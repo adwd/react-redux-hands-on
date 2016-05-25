@@ -4,25 +4,30 @@ import { connect } from 'react-redux'
 import { addTodo, removeTodo, editNewTodo } from '../../redux/modules/todo'
 import TodoItem from './TodoItem'
 
-const ReduxSample = ({ todo: { newTodo, todos }, dispatch }) => (
+const ReduxSample = ({ todo: { newTodo, todos }, edit, add, remove }) => (
   <div style={{padding: '10px 40px'}}>
     <h1>Redux Sample</h1>
     <h2>Todos</h2>
 
     <input type='text' value={newTodo}
-      onChange={e => dispatch(editNewTodo(e.target.value))} />
-    <button onClick={() => dispatch(addTodo())}>add todo</button>
+      onChange={e => edit(e.target.value)} />
+    <button onClick={add}>add todo</button>
     {
       todos.map((text, index) => (
         <TodoItem key={index} text={text} index={index}
-          remove={index => dispatch(removeTodo(index))} />
+          remove={remove} />
       ))
     }
   </div>
 )
 
 const ConnectedReduxSample = connect(
-  state => ({todo: state.todo})
+  state => ({todo: state.todo}),
+  {
+    add: addTodo,
+    remove: removeTodo,
+    edit: editNewTodo
+  }
 )(ReduxSample)
 
 export default ConnectedReduxSample
