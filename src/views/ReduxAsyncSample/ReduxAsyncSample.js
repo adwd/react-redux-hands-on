@@ -1,9 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import Paper from 'material-ui/Paper'
-import { Tabs, Tab } from 'material-ui/Tabs'
-import FontIcon from 'material-ui/FontIcon'
-import LinearProgress from 'material-ui/LinearProgress'
 import { fetchTodos, editTodo, addTodo, removeTodo } from '../../redux/modules/asyncTodo'
 
 class ReduxAsyncSample extends Component {
