@@ -28,37 +28,31 @@ export class CoreLayout extends Component {
 
   render () {
     return (
-      <div>
+      <div name='core-layout'>
         <AppBar
           title='React/Redux Introduction'
-          onLeftIconButtonTouchTap={this.handleToggle}
-        />
+          onLeftIconButtonTouchTap={this.handleToggle} />
         <Drawer
           docked={false}
           open={this.state.open}
-          onRequestChange={this.handleRequestChange}
-        >
+          onRequestChange={this.handleRequestChange}>
           <List>
             <Subheader inset>Samples</Subheader>
             <ListItem
               primaryText='Home'
-              onTouchTap={this.handleClickItem('/')}
-            />
+              onTouchTap={this.handleClickItem('/')} />
             <ListItem
               primaryText='React'
               secondaryText='state, props, stateless component'
-              onTouchTap={this.handleClickItem('/react')}
-            />
+              onTouchTap={this.handleClickItem('/react')} />
             <ListItem
               primaryText='Redux'
               secondaryText='store, action, reducer'
-              onTouchTap={this.handleClickItem('/redux')}
-            />
+              onTouchTap={this.handleClickItem('/redux')} />
             <ListItem
               primaryText='Redux-Async'
               secondaryText='async action, redux-thunk'
-              onTouchTap={this.handleClickItem('/redux-async')}
-            />
+              onTouchTap={this.handleClickItem('/redux-async')} />
           </List>
         </Drawer>
         {this.props.children}

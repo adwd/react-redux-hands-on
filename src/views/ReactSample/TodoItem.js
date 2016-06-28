@@ -9,13 +9,14 @@ export default class TodoItem extends Component {
       React.PropTypes.node
     ])
   }
-  
-  render() {
-    const { index, onRemove, children } = this.props;
+
+  render () {
+    const { index, onRemove, children } = this.props
+    const onClick = () => onRemove(index)
     return (
       <div>
-        {`${index + 1}`}: {children} <input type='button' value='x' onClick={() => onRemove(index)} />
+        {`${index + 1}`}: {children} <input type='button' value='x' onClick={onClick} />
       </div>
-    );
+    )
   }
 }
