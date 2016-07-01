@@ -1,19 +1,21 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { fetchTodos, editTodo, addTodo, removeTodo } from '../../redux/modules/asyncTodo'
+import * as actions from '../../redux/modules/asyncTodo'
 
-class ReduxAsyncSample extends Component {
+export class ReduxAsyncSample extends Component {
   static propTypes = {
-    dispatch: PropTypes.func,
-    todo: PropTypes.any
+    todo: PropTypes.any,
+    fetch: PropTypes.func,
+    edit: PropTypes.func,
+    add: PropTypes.func,
+    remove: PropTypes.func
   }
 
   componentDidMount () {
-    this.props.dispatch(fetchTodos())
+    this.props.fetch()
   }
 
   render () {
-    const { dispatch } = this.props
     const { newTodo, todos, loading, adding, removing } = this.props.todo
     const style = {
       p: {
@@ -33,11 +35,10 @@ class ReduxAsyncSample extends Component {
         padding: '10px'
       }
     }
-    console.log(this.props)
 
-    const edit = (e) => dispatch(editTodo(e.target.value))
-    const add = () => dispatch(addTodo(this.refs.newTodo.value))
-    const remove = (index) => () => dispatch(removeTodo(index))
+    const edit = (e) => this.props.edit(e.target.value)
+    const add = () => this.props.add(this.refs.newTodo.value)
+    const remove = (index) => () => this.props.remove(index)
 
     return (
       <div style={style.content}>
@@ -64,7 +65,13 @@ class ReduxAsyncSample extends Component {
 const ConnectedReduxAsyncSample = connect(
   state => ({
     todo: state.asyncTodo
-  })
+  }),
+  {
+    fetch: actions.fetchTodos,
+    edit: actions.editTodo,
+    add: actions.addTodo,
+    remove: actions.removeTodo
+  }
 )(ReduxAsyncSample)
 
 export default ConnectedReduxAsyncSample

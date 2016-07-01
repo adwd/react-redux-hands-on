@@ -68,6 +68,7 @@ describe('ReactSample', function () {
   it('passes text to TodoItem', () => {
     const wrapper = shallow(<ReactSample />)
     
+    assert.deepEqual(wrapper.state('todos'), ['learn react', 'learn flux', 'learn redux'])
     assert(wrapper.find(TodoItem).length === 3)
     assert(wrapper.find(TodoItem).at(0).props().children === 'learn react')
     assert(wrapper.find(TodoItem).at(1).props().children === 'learn flux')
@@ -98,7 +99,7 @@ describe('ReactSample', function () {
   
   it('onRemove callback is called if x button is clicked', () => {
     const onButtonClick = spy()
-    const wrapper = mount(<TodoItem onRemove={onButtonClick} />)
+    const wrapper = shallow(<TodoItem onRemove={onButtonClick} />)
     
     wrapper.find('input').simulate('click')
     assert(onButtonClick.calledOnce)
